@@ -1,11 +1,21 @@
 package pvtitov.jsonplaceholderapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import pvtitov.jsonplaceholderapplication.api_service.JSONPlaceHolderApi;
+import pvtitov.jsonplaceholderapplication.api_service.UsersModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,19 +28,25 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
+                    startActivity(intent);
                     return true;
             }
             return false;
         }
 
     };
+
+    Retrofit mRetrofit = new Retrofit.Builder()
+            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    JSONPlaceHolderApi mJsonPlaceHolderApi = mRetrofit.create(JSONPlaceHolderApi.class);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +56,18 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        mJsonPlaceHolderApi.getUser(1).enqueue(new Callback<UsersModel>() {
+            @Override
+            public void onResponse(Call<UsersModel> call, Response<UsersModel> response) {
+                mTextMessage.setText(response.body().getUsername());
+            }
+
+            @Override
+            public void onFailure(Call<UsersModel> call, Throwable t) {
+                mTextMessage.setText("Oops");
+            }
+        });
     }
 
 }

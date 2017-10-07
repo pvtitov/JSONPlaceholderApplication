@@ -3,7 +3,6 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by Павел on 07.10.2017.
