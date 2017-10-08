@@ -3,7 +3,7 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UsersModel implements CommonResponse {
+public class UsersModel implements StringFromResponse {
 
     @SerializedName("id")
     @Expose
@@ -96,6 +96,10 @@ public class UsersModel implements CommonResponse {
 
     @Override
     public String getData() {
-        return name + "\n" + email;
+        address = getAddress();
+        return name + "\n" + email
+                + "\n" + address.getCity()
+                + ", " + address.getStreet()
+                + " " + address.getSuite();
     }
 }

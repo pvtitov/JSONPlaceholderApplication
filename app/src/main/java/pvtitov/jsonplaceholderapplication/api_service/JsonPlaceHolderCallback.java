@@ -1,6 +1,10 @@
 package pvtitov.jsonplaceholderapplication.api_service;
 
+import android.content.Context;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -11,17 +15,28 @@ import retrofit2.Response;
 
 public class JsonPlaceHolderCallback<T> implements retrofit2.Callback<T> {
     private TextView mTextView;
+    private ImageView mImageView;
+    private Context mContext;
 
     public JsonPlaceHolderCallback(TextView textView){
         mTextView = textView;
     }
 
+    public JsonPlaceHolderCallback(Context context, ImageView imageView){
+        mImageView = imageView;
+        mContext = context;
+    }
+
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         T body = response.body();
-        if (body instanceof CommonResponse) {
-            CommonResponse commonResponseBody = (CommonResponse) body;
-            mTextView.setText(commonResponseBody.getData());
+        if (body instanceof StringFromResponse) {
+            StringFromResponse responseBody = (StringFromResponse) body;
+            mTextView.setText(responseBody.getData());
+        }
+        if (body instanceof ImageFromResponse) {
+            ImageFromResponse responseBody = (ImageFromResponse) body;
+            Picasso.with(mContext).load(responseBody.getUrl()).into(mImageView);
         }
     }
 

@@ -3,7 +3,7 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PhotosModel {
+public class PhotosModel implements ImageFromResponse {
 
     @SerializedName("albumId")
     @Expose

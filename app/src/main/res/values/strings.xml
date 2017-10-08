@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">JSONPlaceholderApplication</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="my_name">Pavel Titov</string>
     <string name="my_email">pavel_titov@mail.ru</string>
+    <string name="title_contacts">Contacts</string>
+    <string name="posts">Post...</string>
+    <string name="users">User...</string>
+    <string name="comments">Comment...</string>
+    <string name="photos">Photo...</string>
+    <string name="todos">Todo...</string>
 </resources>

@@ -3,7 +3,7 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PostsModel {
+public class PostsModel implements StringFromResponse {
 
     @SerializedName("userId")
     @Expose
@@ -50,4 +50,9 @@ public class PostsModel {
         this.body = body;
     }
 
+    @Override
+    public String getData() {
+        return title.toUpperCase()
+                + "\n" + body;
+    }
 }

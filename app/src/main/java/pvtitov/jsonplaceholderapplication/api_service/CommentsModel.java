@@ -4,7 +4,7 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CommentsModel {
+public class CommentsModel implements StringFromResponse {
 
     @SerializedName("postId")
     @Expose
@@ -62,4 +62,8 @@ public class CommentsModel {
         this.body = body;
     }
 
+    @Override
+    public String getData() {
+        return body;
+    }
 }

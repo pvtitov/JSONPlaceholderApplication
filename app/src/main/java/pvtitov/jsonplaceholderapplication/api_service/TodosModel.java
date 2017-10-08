@@ -3,7 +3,7 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TodosModel {
+public class TodosModel implements StringFromResponse {
 
     @SerializedName("userId")
     @Expose
@@ -50,4 +50,8 @@ public class TodosModel {
         this.completed = completed;
     }
 
+    @Override
+    public String getData() {
+        return title + " - " + completed;
+    }
 }
