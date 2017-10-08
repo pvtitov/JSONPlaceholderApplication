@@ -3,7 +3,7 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UsersModel {
+public class UsersModel implements CommonResponse {
 
     @SerializedName("id")
     @Expose
@@ -94,4 +94,8 @@ public class UsersModel {
         this.company = company;
     }
 
+    @Override
+    public String getData() {
+        return name + "\n" + email;
+    }
 }

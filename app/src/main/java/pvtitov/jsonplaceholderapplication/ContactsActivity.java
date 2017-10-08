@@ -21,8 +21,6 @@ public class ContactsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contacts);
 
         mName = (TextView) findViewById(R.id.my_name);
-        //mName.setText("R.string.my_name");
         mEmail = (TextView) findViewById(R.id.my_email);
-        //mEmail.setText("R.string.my_email");
     }
 }
