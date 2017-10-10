@@ -6,8 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import pvtitov.jsonplaceholderapplication.api_service.CommentsModel;
 import pvtitov.jsonplaceholderapplication.api_service.JSONPlaceHolderApi;
@@ -50,11 +54,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView postTextView = (TextView) findViewById(R.id.post);
+            final EditText postRequest = (EditText) findViewById(R.id.post_request);
+            ImageButton postRequestButton = (ImageButton) findViewById(R.id.post_request_button);
         TextView commentTextView = (TextView) findViewById(R.id.comment);
         TextView userTextView = (TextView) findViewById(R.id.user);
         TextView todoTextView = (TextView) findViewById(R.id.todo);
         ImageView photoImageView = (ImageView) findViewById(R.id.photo);
 
+
+        postRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, postRequest.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         JsonPlaceHolderCallback<PostsModel> postCallback = new JsonPlaceHolderCallback<>(postTextView);
         mJsonPlaceHolderApi.getPost(randomIntFromOneTo(100)).enqueue(postCallback);
