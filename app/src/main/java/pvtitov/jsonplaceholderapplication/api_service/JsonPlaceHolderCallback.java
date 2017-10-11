@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -17,9 +20,14 @@ public class JsonPlaceHolderCallback<T> implements retrofit2.Callback<T> {
     private TextView mTextView;
     private ImageView mImageView;
     private Context mContext;
+    private String mString;
 
     public JsonPlaceHolderCallback(TextView textView){
         mTextView = textView;
+    }
+
+    public JsonPlaceHolderCallback(List<String> strings, int i){
+        mString = strings.get(i);
     }
 
     public JsonPlaceHolderCallback(Context context, ImageView imageView){
@@ -33,6 +41,7 @@ public class JsonPlaceHolderCallback<T> implements retrofit2.Callback<T> {
         if (body instanceof StringFromResponse) {
             StringFromResponse responseBody = (StringFromResponse) body;
             mTextView.setText(responseBody.getData());
+            mString = responseBody.getData();
         }
         if (body instanceof ImageFromResponse) {
             ImageFromResponse responseBody = (ImageFromResponse) body;

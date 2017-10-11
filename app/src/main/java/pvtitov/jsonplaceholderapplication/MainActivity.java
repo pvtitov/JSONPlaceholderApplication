@@ -7,11 +7,16 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import pvtitov.jsonplaceholderapplication.api_service.CommentsModel;
 import pvtitov.jsonplaceholderapplication.api_service.JSONPlaceHolderApi;
@@ -57,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             final EditText postRequest = (EditText) findViewById(R.id.post_request);
             ImageButton postRequestButton = (ImageButton) findViewById(R.id.post_request_button);
         TextView commentTextView = (TextView) findViewById(R.id.comment);
-        TextView userTextView = (TextView) findViewById(R.id.user);
+        ListView usersListView = (ListView) findViewById(R.id.users);
+            List<String> usersList = new ArrayList<>();
         TextView todoTextView = (TextView) findViewById(R.id.todo);
         ImageView photoImageView = (ImageView) findViewById(R.id.photo);
 
@@ -75,11 +81,20 @@ public class MainActivity extends AppCompatActivity {
         JsonPlaceHolderCallback<CommentsModel> commentCallback = new JsonPlaceHolderCallback<>(commentTextView);
         mJsonPlaceHolderApi.getComment(randomIntFromOneTo(500)).enqueue(commentCallback);
 
-        JsonPlaceHolderCallback<UsersModel> userCallback = new JsonPlaceHolderCallback<>(userTextView);
-        mJsonPlaceHolderApi.getUser(randomIntFromOneTo(5)).enqueue(userCallback);
+        /*for (int i = 0; i < 5; i++){
+            usersList.add(i,"");
+            JsonPlaceHolderCallback<UsersModel> userCallback = new JsonPlaceHolderCallback<>(usersList, i);
+            mJsonPlaceHolderApi.getUser(i+1).enqueue(userCallback);
+        }
+
+
+        Поместить в Callback.onResponse
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, usersList);
+        usersListView.setAdapter(adapter);*/
 
         JsonPlaceHolderCallback<PhotosModel> photoCallback = new JsonPlaceHolderCallback<>(this, photoImageView);
-        mJsonPlaceHolderApi.getPhoto(randomIntFromOneTo(5000)).enqueue(photoCallback);
+        mJsonPlaceHolderApi.getPhoto(3).enqueue(photoCallback);
 
         JsonPlaceHolderCallback<TodosModel> todoCallback = new JsonPlaceHolderCallback<>(todoTextView);
         mJsonPlaceHolderApi.getTodo(randomIntFromOneTo(200)).enqueue(todoCallback);
