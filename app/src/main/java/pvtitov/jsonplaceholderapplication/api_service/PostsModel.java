@@ -3,7 +3,7 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PostsModel implements StringFromResponse {
+public class PostsModel implements NeededData<String>{
 
     @SerializedName("userId")
     @Expose

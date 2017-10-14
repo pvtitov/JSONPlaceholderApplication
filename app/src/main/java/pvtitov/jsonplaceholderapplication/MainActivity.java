@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +29,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,16 +59,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // Карточка с постами
         TextView postTextView = (TextView) findViewById(R.id.post);
-            final EditText postRequest = (EditText) findViewById(R.id.post_request);
-            ImageButton postRequestButton = (ImageButton) findViewById(R.id.post_request_button);
-        TextView commentTextView = (TextView) findViewById(R.id.comment);
-        ListView usersListView = (ListView) findViewById(R.id.users);
-            List<String> usersList = new ArrayList<>();
-        TextView todoTextView = (TextView) findViewById(R.id.todo);
-        ImageView photoImageView = (ImageView) findViewById(R.id.photo);
+        JsonPlaceHolderCallback<PostsModel> postCallback = new JsonPlaceHolderCallback<>(postTextView);
+        mJsonPlaceHolderApi.getPost(randomIntFromOneTo(100)).enqueue(postCallback);
 
-
+        // Номер поста вводит пользаватель
+        final EditText postRequest = (EditText) findViewById(R.id.post_request);
+        ImageButton postRequestButton = (ImageButton) findViewById(R.id.post_request_button);
         postRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,27 +75,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        JsonPlaceHolderCallback<PostsModel> postCallback = new JsonPlaceHolderCallback<>(postTextView);
-        mJsonPlaceHolderApi.getPost(randomIntFromOneTo(100)).enqueue(postCallback);
 
+        // Карточка с комментариями
+        TextView commentTextView = (TextView) findViewById(R.id.comment);
         JsonPlaceHolderCallback<CommentsModel> commentCallback = new JsonPlaceHolderCallback<>(commentTextView);
         mJsonPlaceHolderApi.getComment(randomIntFromOneTo(500)).enqueue(commentCallback);
 
-        /*for (int i = 0; i < 5; i++){
-            usersList.add(i,"");
-            JsonPlaceHolderCallback<UsersModel> userCallback = new JsonPlaceHolderCallback<>(usersList, i);
+        // Карточка со списком пользователей
+        RecyclerView usersListView = (RecyclerView) findViewById(R.id.users);
+        usersListView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager;
+        layoutManager = new LinearLayoutManager(this);
+        usersListView.setLayoutManager(layoutManager);
+
+        List<String> usersList = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            JsonPlaceHolderCallback<UsersModel> userCallback = new JsonPlaceHolderCallback<>(this, usersListView, usersList);
             mJsonPlaceHolderApi.getUser(i+1).enqueue(userCallback);
         }
 
 
-        Поместить в Callback.onResponse
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, usersList);
-        usersListView.setAdapter(adapter);*/
-
+        // Карточка с картинкой
+        ImageView photoImageView = (ImageView) findViewById(R.id.photo);
         JsonPlaceHolderCallback<PhotosModel> photoCallback = new JsonPlaceHolderCallback<>(this, photoImageView);
         mJsonPlaceHolderApi.getPhoto(3).enqueue(photoCallback);
 
+
+        // Карточка с задачами
+        TextView todoTextView = (TextView) findViewById(R.id.todo);
         JsonPlaceHolderCallback<TodosModel> todoCallback = new JsonPlaceHolderCallback<>(todoTextView);
         mJsonPlaceHolderApi.getTodo(randomIntFromOneTo(200)).enqueue(todoCallback);
 

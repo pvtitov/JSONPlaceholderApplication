@@ -4,7 +4,7 @@ package pvtitov.jsonplaceholderapplication.api_service;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CommentsModel implements StringFromResponse {
+public class CommentsModel implements NeededData<String> {
 
     @SerializedName("postId")
     @Expose

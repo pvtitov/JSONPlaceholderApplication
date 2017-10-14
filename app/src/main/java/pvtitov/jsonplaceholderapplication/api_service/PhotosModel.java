@@ -1,9 +1,11 @@
 package pvtitov.jsonplaceholderapplication.api_service;
 
+import android.media.Image;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PhotosModel implements ImageFromResponse {
+public class PhotosModel implements NeededData<String> {
 
     @SerializedName("albumId")
     @Expose
@@ -61,4 +63,8 @@ public class PhotosModel implements ImageFromResponse {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    @Override
+    public String getData() {
+        return url;
+    }
 }
