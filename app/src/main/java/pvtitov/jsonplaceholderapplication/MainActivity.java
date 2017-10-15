@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,25 +60,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Карточка с постами
-        TextView postTextView = (TextView) findViewById(R.id.post);
-        JsonPlaceHolderCallback<PostsModel> postCallback = new JsonPlaceHolderCallback<>(postTextView);
-        mJsonPlaceHolderApi.getPost(randomIntFromOneTo(100)).enqueue(postCallback);
-
         // Номер поста вводит пользаватель
-        final EditText postRequest = (EditText) findViewById(R.id.post_request);
+        TextView postTextView = (TextView) findViewById(R.id.post);
+        EditText postRequest = (EditText) findViewById(R.id.post_request);
         ImageButton postRequestButton = (ImageButton) findViewById(R.id.post_request_button);
-        postRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, postRequest.getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
+            PostRequestListener postRequestListener = new PostRequestListener(postTextView, postRequest);
+            postRequestButton.setOnClickListener(postRequestListener);
 
 
         // Карточка с комментариями
         TextView commentTextView = (TextView) findViewById(R.id.comment);
-        JsonPlaceHolderCallback<CommentsModel> commentCallback = new JsonPlaceHolderCallback<>(commentTextView);
-        mJsonPlaceHolderApi.getComment(randomIntFromOneTo(500)).enqueue(commentCallback);
+        EditText commentRequest = (EditText) findViewById(R.id.comment_request);
+        ImageButton commentRequestButton = (ImageButton) findViewById(R.id.comment_request_button);
+            CommentRequestListener commentRequestListener = new CommentRequestListener(commentTextView, commentRequest);
+            commentRequestButton.setOnClickListener(commentRequestListener);
+
 
         // Карточка со списком пользователей
         RecyclerView usersListView = (RecyclerView) findViewById(R.id.users);
@@ -111,8 +106,66 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+
+
     private int randomIntFromOneTo(int max) {
         double randomNumber = Math.random()*(max-1)+1;
         return (int)randomNumber;
+    }
+
+
+
+    private class PostRequestListener implements View.OnClickListener {
+
+        TextView mTextView;
+        EditText mEditText;
+
+        public PostRequestListener(TextView textView, EditText editText) {
+            mTextView = textView;
+            mEditText = editText;
+        }
+
+        @Override
+        public void onClick(View view) {
+            int postNumber = 0;
+
+            try {
+                postNumber = Integer.parseInt(mEditText.getText().toString());
+            } catch (NumberFormatException e) {
+                mTextView.setText(e.getLocalizedMessage());
+            }
+
+            if ((postNumber >= 1) && (postNumber <= 100)) {
+                JsonPlaceHolderCallback<PostsModel> postCallback = new JsonPlaceHolderCallback<>(mTextView);
+                mJsonPlaceHolderApi.getPost(postNumber).enqueue(postCallback);
+            }
+        }
+    }
+
+    private class CommentRequestListener implements View.OnClickListener {
+
+        TextView mTextView;
+        EditText mEditText;
+
+        public CommentRequestListener(TextView textView, EditText editText) {
+            mTextView = textView;
+            mEditText = editText;
+        }
+
+        @Override
+        public void onClick(View view) {
+            int postNumber = 0;
+
+            try {
+                postNumber = Integer.parseInt(mEditText.getText().toString());
+            } catch (NumberFormatException e) {
+                mTextView.setText(e.getLocalizedMessage());
+            }
+
+            if ((postNumber >= 1) && (postNumber <= 500)) {
+                JsonPlaceHolderCallback<CommentsModel> commentCallback = new JsonPlaceHolderCallback<>(mTextView);
+                mJsonPlaceHolderApi.getComment(postNumber).enqueue(commentCallback);
+            }
+        }
     }
 }

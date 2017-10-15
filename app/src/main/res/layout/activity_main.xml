@@ -25,7 +25,7 @@
                 android:id="@+id/post_card"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="@dimen/cardview_default_radius"
+                android:layout_margin="8dp"
                 android:layout_weight="1">
 
                 <LinearLayout
@@ -37,11 +37,10 @@
                         android:id="@+id/post"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:text="@string/posts" />
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -49,10 +48,11 @@
                         android:orientation="horizontal">
 
                         <EditText
+                            android:id="@+id/post_request"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:id="@+id/post_request"/>
+                            android:hint="Введи номер поста от 1 до 100" />
 
                         <ImageButton
                             android:id="@+id/post_request_button"
@@ -74,19 +74,47 @@
                 android:id="@+id/comment_card"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="@dimen/cardview_default_radius"
+                android:layout_margin="8dp"
                 android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/comment"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:text="@string/comments"
-                    />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/comment_request"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Введи номер поста от 1 до 500" />
+
+                        <ImageButton
+                            android:id="@+id/comment_request_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@android:drawable/ic_menu_search" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -96,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_margin="@dimen/cardview_default_radius"
+                android:layout_margin="8dp"
                 >
 
                 <android.support.v7.widget.RecyclerView
@@ -111,17 +139,17 @@
                 android:id="@+id/photo_card"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="@dimen/cardview_default_radius"
+                android:layout_margin="8dp"
                 android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/photo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
                     />
 
             </android.support.v7.widget.CardView>
@@ -130,18 +158,17 @@
                 android:id="@+id/todo_card"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="@dimen/cardview_default_radius"
+                android:layout_margin="8dp"
                 android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/todo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:text="@string/todos"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
                     />
 
             </android.support.v7.widget.CardView>

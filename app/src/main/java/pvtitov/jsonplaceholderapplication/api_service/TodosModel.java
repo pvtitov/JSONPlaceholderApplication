@@ -52,6 +52,8 @@ public class TodosModel implements NeededData<String> {
 
     @Override
     public String getData() {
-        return title + " - " + completed;
+        String result;
+        if (completed) {result = "Выполнено";} else {result = "Не выполнено";}
+        return title + "\n" + result;
     }
 }
